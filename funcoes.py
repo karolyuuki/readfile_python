@@ -38,3 +38,9 @@ def separadados(filename):
     newarchiveL.close()
 
     return attr, Llabel
+
+def converteitens(lista):
+    nitem= list()
+    for item in lista.split(","):
+        nitem.append(float(item))
+    return nitem
