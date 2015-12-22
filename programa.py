@@ -24,8 +24,12 @@ for it in range(0,10):
     med3= c/len(cent3)
 
     media = (med1+med2+med3)/3
-    medias.append([med1,med2,med3,media])
+    medias.append(media)
     
+#percorrer medias pra achar o menor valor
+#Se fizer isso com algum tipo de sort n'ao vai dar muito certo, pq vai desordenar
+#e n'ao vai dar mais pra saber qual media eh de qual centroide
+#se der um zip neles dois com as medias primeiro e usar s[o as medias
+#como parametro pode dar certo
 
-print(len (centroids))
-print(len (medias))
+
