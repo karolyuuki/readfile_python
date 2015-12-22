@@ -2,7 +2,7 @@ import funcoes
 
 centroids = list()
 medias = list()
-for it in range(0,10):
+for it in range(0,50):
 
     c1, c2, c3, cent1, cent2, cent3 = funcoes.centroide('normals.txt')
 
