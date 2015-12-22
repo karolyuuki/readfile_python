@@ -1,37 +1,25 @@
 import funcoes
-import random
 
-def centroide(lista):
-    Attrb, labels = funcoes.separadados(lista)
+c1, c2, c3, cent1, cent2, cent3 = funcoes.centroide('normals.txt')
 
+print(c1)
+print(c2)
+print(c3)
+a = 0
+b = 0
+c = 0
 
-    c = len(Attrb)
-    Centroide1 = funcoes.converteitens(Attrb[random.randint(0,c)])
-    Centroide2 = funcoes.converteitens(Attrb[random.randint(0,c)])
-    Centroide3 = funcoes.converteitens(Attrb[random.randint(0,c)])
+for i in cent1:
+    a= a + funcoes.distanciaeuclidiana(c1,i)
+med1= a/len(cent1)
+print (med1)
 
+for i in cent2:
+    b= b + funcoes.distanciaeuclidiana(c2,i)
+med2= b/len(cent2)
+print (med2)
 
-    Cent1 = list()
-    Cent2 = list()
-    Cent3 = list()
-
-    for item in Attrb:
-        nitem = funcoes.converteitens(item)
-        a = funcoes.distanciaeuclidiana(nitem,Centroide1)
-        b = funcoes.distanciaeuclidiana(nitem,Centroide2)
-        c = funcoes.distanciaeuclidiana(nitem,Centroide3)
-        if a<b and a<c:
-            Cent1.append(nitem)
-        elif b<a and b<c:
-            Cent2.append(nitem)
-        else:
-            Cent3.append(nitem)
-
-    print(len(Cent1), len(Cent2), len(Cent3))
-
-    for i,iname in zip([Cent1, Cent2, Cent3],[1,2,3]):
-        for j in i:
-            for k in j:
-                print(str(k)+",")
-            print(str(iname)+"\n")
-    return Centroide1, Centroide2, Centroide3, Cent1, Cent2, Cent3
+for i in cent3:
+    c= c + funcoes.distanciaeuclidiana(c3,i)
+med3= c/len(cent3)
+print (med3)
