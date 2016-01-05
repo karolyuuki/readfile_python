@@ -34,3 +34,5 @@ def bestCentroid(onelist):
 lista = 'normals.txt'
 centroides = bestCentroid(lista)
 print (centroides)
+
+Cluster = funcoes.cluster(lista,centroides)
