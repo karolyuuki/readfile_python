@@ -3,7 +3,7 @@ import funcoes
 def bestCentroid(onelist):
     centroids = list()
     medias = list()
-    for it in range(0,50):
+    for it in range(0,600):
 
         c1, c2, c3, cent1, cent2, cent3 = funcoes.centroide(onelist)
 
@@ -12,20 +12,30 @@ def bestCentroid(onelist):
         b = 0
         c = 0
 
-        for i in cent1:
-            a= a + funcoes.distanciaeuclidiana(c1,i)
-        med1= a/len(cent1)
+        try:
+            for i in cent1:
+                a= a + funcoes.distanciaeuclidiana(c1,i)
+            med1= a/len(cent1)
+        except(ZeroDivisionError):
+            med1 = 6
 
-        for i in cent2:
-            b= b + funcoes.distanciaeuclidiana(c2,i)
-        med2= b/len(cent2)
+        try:
+            for i in cent2:
+                b= b + funcoes.distanciaeuclidiana(c2,i)
+            med2= b/len(cent2)
+        except(ZeroDivisionError):
+            med2 = 6
 
-        for i in cent3:
-            c= c + funcoes.distanciaeuclidiana(c3,i)
-        med3= c/len(cent3)
+        try:
+            for i in cent3:
+                c= c + funcoes.distanciaeuclidiana(c3,i)
+            med3= c/len(cent3)
+        except(ZeroDivisionError):
+            med3 = 6
 
         media = (med1+med2+med3)/3
         medias.append(media)
+
     
     newlist= list(zip(medias,centroids))
     newlist.sort(key=lambda tup: tup[0])
