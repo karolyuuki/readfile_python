@@ -48,7 +48,7 @@ def converteitens(lista):
     return nitem
 
 def centroide(lista):
-    Attrb, labels = funcoes.separadados(lista)
+    Attrb, labels = separadados(lista)
 
 
     c = (len(Attrb))-1
@@ -62,7 +62,7 @@ def centroide(lista):
     Cent3 = list()
 
     for item in Attrb:
-        nitem = funcoes.converteitens(item)
+        nitem = converteitens(item)
         a = distanciaeuclidiana(nitem,Centroide1)
         b = distanciaeuclidiana(nitem,Centroide2)
         c = distanciaeuclidiana(nitem,Centroide3)
@@ -77,7 +77,7 @@ def centroide(lista):
     return Centroide1, Centroide2, Centroide3, Cent1, Cent2, Cent3
 
 def cluster(lista,centroides):
-    Attrb, labels = funcoes.separadados(lista)
+    Attrb, labels = separadados(lista)
 
 
     c = len(Attrb)
@@ -92,7 +92,7 @@ def cluster(lista,centroides):
     Cent3 = list()
 
     for item in Attrb:
-        nitem = funcoes.converteitens(item)
+        nitem = converteitens(item)
         a = distanciaeuclidiana(nitem,Centroide1)
         b = distanciaeuclidiana(nitem,Centroide2)
         c = distanciaeuclidiana(nitem,Centroide3)
@@ -112,7 +112,7 @@ def cluster(lista,centroides):
     return Cent1, Cent2, Cent3
 
 def cluster2(lista,centroides):
-    Attrb, labels = funcoes.separadados(lista)
+    Attrb, labels = separadados(lista)
 
 
     c = len(Attrb)
@@ -126,7 +126,7 @@ def cluster2(lista,centroides):
     Cent3 = list()
 
     for item in Attrb:
-        nitem = funcoes.converteitens(item)
+        nitem = converteitens(item)
         a = distanciaeuclidiana(nitem,Centroide1)
         b = distanciaeuclidiana(nitem,Centroide2)
         c = distanciaeuclidiana(nitem,Centroide3)
@@ -136,12 +136,10 @@ def cluster2(lista,centroides):
             Cent2.append([b,nitem])
         else:
             Cent3.append([c,nitem])
-    #print(Cent1)
     Cent1.sort(key=lambda tup: tup[0])
     Cent2.sort(key=lambda tup: tup[0])
     Cent3.sort(key=lambda tup: tup[0])
     print('/n')
-    #print(Cent1)
 
     newarchive= open ('lists_cluster2.txt','w')
     for i,iname in zip([Cent1, Cent2, Cent3],[1,2,3]):
@@ -152,7 +150,7 @@ def cluster2(lista,centroides):
     return Cent1, Cent2, Cent3
 
 def centroide2(lista,centroides):
-    Attrb, labels = funcoes.separadados(lista)
+    Attrb, labels = separadados(lista)
 
 
     Centroide1 = centroides[0]
@@ -163,9 +161,10 @@ def centroide2(lista,centroides):
     cent1 = list()
     cent2 = list()
     cent3 = list()
+    med = list()
 
     for item in Attrb:
-        nitem = funcoes.converteitens(item)
+        nitem = converteitens(item)
         a = distanciaeuclidiana(nitem,Centroide1)
         b = distanciaeuclidiana(nitem,Centroide2)
         c = distanciaeuclidiana(nitem,Centroide3)
@@ -182,26 +181,28 @@ def centroide2(lista,centroides):
 
     try:
         for i in cent1:
-            x= x + funcoes.distanciaeuclidiana(Centroide1,i)
+            x= x + distanciaeuclidiana(Centroide1,i)
         med1= x/len(cent1)
     except(ZeroDivisionError):
         med1 = 6
 
     try:
         for i in cent2:
-            y= y + funcoes.distanciaeuclidiana(Centroide2,i)
+            y= y + distanciaeuclidiana(Centroide2,i)
         med2= y/len(cent2)
     except(ZeroDivisionError):
         med2 = 6
 
     try:
         for i in cent3:
-            z= z + funcoes.distanciaeuclidiana(Centroide3,i)
+            z= z + distanciaeuclidiana(Centroide3,i)
         med3= z/len(cent3)
     except(ZeroDivisionError):
         med3 = 6
 
     media = (med1+med2+med3)/3
+    med.append(med1)
+    med.append(med2)
+    med.append(med3)
 
-     return media, cent1, cent2,cent3
-
+    return media, cent1, cent2,cent3, med
