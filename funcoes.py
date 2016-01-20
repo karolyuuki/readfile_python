@@ -2,6 +2,7 @@ import math
 import random
 
 def distanciaeuclidiana(i,j):
+    #Calculates the distance betweent two points
     n = len(i)
     soma = 0
     for a in range(len(i)):
@@ -11,6 +12,8 @@ def distanciaeuclidiana(i,j):
     
 
 def separadados(filename):
+    #recieves a file and returns one lists with the attributes
+    #and other one with the labels. Also save them in txt files
     filex = open (filename, 'r')
     list_items = filex.readlines()
     size =(len(list_items))
@@ -44,9 +47,6 @@ def converteitens(lista):
         nitem.append(float(item))
     return nitem
 
-import funcoes
-import random
-
 def centroide(lista):
     Attrb, labels = funcoes.separadados(lista)
 
@@ -73,13 +73,7 @@ def centroide(lista):
         else:
             Cent3.append(nitem)
 
-    #print(len(Cent1), len(Cent2), len(Cent3))
 
-    #for i,iname in zip([Cent1, Cent2, Cent3],[1,2,3]):
-        #for j in i:
-            #for k in j:
-                #print (str(k)+",")
-            #print(str(iname)+"\n")
     return Centroide1, Centroide2, Centroide3, Cent1, Cent2, Cent3
 
 def cluster(lista,centroides):
@@ -109,7 +103,6 @@ def cluster(lista,centroides):
         else:
             Cent3.append(nitem)
 
-    #print(len(Cent1), len(Cent2), len(Cent3))
     newarchive= open ('lists_cluster.txt','w')
     for i,iname in zip([Cent1, Cent2, Cent3],[1,2,3]):
         for j in i:
@@ -138,11 +131,17 @@ def cluster2(lista,centroides):
         b = distanciaeuclidiana(nitem,Centroide2)
         c = distanciaeuclidiana(nitem,Centroide3)
         if a<b and a<c:
-            Cent1.append(nitem)
+            Cent1.append([a,nitem])
         elif b<a and b<c:
-            Cent2.append(nitem)
+            Cent2.append([b,nitem])
         else:
-            Cent3.append(nitem)
+            Cent3.append([c,nitem])
+    #print(Cent1)
+    Cent1.sort(key=lambda tup: tup[0])
+    Cent2.sort(key=lambda tup: tup[0])
+    Cent3.sort(key=lambda tup: tup[0])
+    print('/n')
+    #print(Cent1)
 
     newarchive= open ('lists_cluster2.txt','w')
     for i,iname in zip([Cent1, Cent2, Cent3],[1,2,3]):
@@ -151,4 +150,58 @@ def cluster2(lista,centroides):
                 newarchive.write(str(k)+",")
             newarchive.write(str(iname)+"\n")
     return Cent1, Cent2, Cent3
+
+def centroide2(lista,centroides):
+    Attrb, labels = funcoes.separadados(lista)
+
+
+    Centroide1 = centroides[0]
+    Centroide2 = centroides[1]
+    Centroide3 = centroides[2]
+
+
+    cent1 = list()
+    cent2 = list()
+    cent3 = list()
+
+    for item in Attrb:
+        nitem = funcoes.converteitens(item)
+        a = distanciaeuclidiana(nitem,Centroide1)
+        b = distanciaeuclidiana(nitem,Centroide2)
+        c = distanciaeuclidiana(nitem,Centroide3)
+        if a<b and a<c:
+            cent1.append(nitem)
+        elif b<a and b<c:
+            cent2.append(nitem)
+        else:
+            cent3.append(nitem)
+
+    x = 0
+    y = 0
+    z = 0
+
+    try:
+        for i in cent1:
+            x= x + funcoes.distanciaeuclidiana(Centroide1,i)
+        med1= x/len(cent1)
+    except(ZeroDivisionError):
+        med1 = 6
+
+    try:
+        for i in cent2:
+            y= y + funcoes.distanciaeuclidiana(Centroide2,i)
+        med2= y/len(cent2)
+    except(ZeroDivisionError):
+        med2 = 6
+
+    try:
+        for i in cent3:
+            z= z + funcoes.distanciaeuclidiana(Centroide3,i)
+        med3= z/len(cent3)
+    except(ZeroDivisionError):
+        med3 = 6
+
+    media = (med1+med2+med3)/3
+
+     return media, cent1, cent2,cent3
 
